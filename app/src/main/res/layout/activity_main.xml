@@ -15,7 +15,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:text="Enviar para menu Power" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/appRecyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
