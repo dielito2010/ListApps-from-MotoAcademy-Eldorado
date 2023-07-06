@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         appAdapter = new AppAdapter(this, appList);
         recyclerView.setAdapter(appAdapter);
 
-        // Configure o botão de salvar
+        // Configuração do botão de salvar
         saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 if (selectedPosition != RecyclerView.NO_POSITION) {
                     ApplicationInfo selectedApp = appList.get(selectedPosition);
                     String appName = selectedApp.loadLabel(packageManager).toString();
-                    Toast.makeText(MainActivity.this, "App selecionado: " + appName, Toast.LENGTH_SHORT).show();
+                    SystemPropertiesHelper.setAppName(appName);
+                    Toast.makeText(MainActivity.this, "Selecionado: " + appName, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Nenhum app selecionado", Toast.LENGTH_SHORT).show();
                 }
