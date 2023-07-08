@@ -38,13 +38,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // Configure o RecyclerView
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        appAdapter = new AppAdapter(this, appList);
-        recyclerView.setAdapter(appAdapter);
-
-        // Configuração do botão de salvar
+        // Configure o botão de salvar
         saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +46,15 @@ public class MainActivity extends AppCompatActivity {
                 int selectedPosition = appAdapter.getSelectedPosition();
                 if (selectedPosition != RecyclerView.NO_POSITION) {
                     ApplicationInfo selectedApp = appList.get(selectedPosition);
+
+
                     String appName = selectedApp.loadLabel(packageManager).toString();
-                    SystemPropertiesHelper.setAppName(appName);
+                    try {
+                        SystemPropertiesHelper.write("7", appName);
+                    }catch(Exception e)
+                    {
+
+                    }
                     Toast.makeText(MainActivity.this, "Selecionado: " + appName, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Nenhum app selecionado", Toast.LENGTH_SHORT).show();
