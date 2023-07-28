@@ -979,10 +979,10 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
 
             String packageName = SystemProperties.get("listAppsProp","");
             if(packageName.equals("")) {
-                packageName = packageName.replaceAll(packageName, "com.example.listapps2");
-            }else {
-                return packageName;
-            }   
+                packageName = packageName.replaceAll(packageName, "com.example.listapps2");}
+            // }else {
+            //     return packageName;
+            // }   
 
             // String packageName = "com.example.listapps2"; // Substitua
             // "com.example.package" pelo packageName do
