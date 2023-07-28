@@ -152,6 +152,10 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         GlobalActionsPanelPlugin.Callbacks,
         LifecycleOwner {
 
+    //public static String packageName = "com.android.calendar";
+    //com.android.contacts
+    //com.android.camera2
+
     public static final String SYSTEM_DIALOG_REASON_KEY = "reason";
     public static final String SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS = "globalactions";
     public static final String SYSTEM_DIALOG_REASON_DREAM = "dream";
@@ -970,19 +974,19 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         // }
 
         public void onPress() {
-            
+
             // Paramos aqui, falta ajeitar a condição de chamada do packageName
-            public String packageName = "com.example.listapps2";
 
-            // String packageNameDefault = SystemProperties.getBoolean("listAppsProp", false);
-            if (SystemProperties.getBoolean("listAppsProp", false)) {
-                String packageName = "com.example.listapps2";
-            } else {
-                String packageName = SystemProperties.get("listAppsProp");
-            }
+            String packageName = SystemProperties.get("listAppsProp","");
+            if(packageName.equals("")) {
+                packageName = packageName.replaceAll(packageName, "com.example.listapps2");
+            }else {
+                return packageName;
+            }   
 
-            // String packageName = "com.example.listapps2"; // Substitua "com.example.package" pelo packageName do
-                                                          // aplicativo desejado
+            // String packageName = "com.example.listapps2"; // Substitua
+            // "com.example.package" pelo packageName do
+            // aplicativo desejado
             PackageManager packageManager = mContext.getPackageManager();
 
             if (isAppInstalled(packageManager, packageName)) {
@@ -1002,6 +1006,7 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
                 System.out.println("Toast");
             }
         }
+
 
         private boolean isAppInstalled(PackageManager packageManager, String packageName) {
             try {
@@ -2520,7 +2525,7 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         private void showSmartLockDisabledMessage() {
             // Since power menu is the top window, make a Toast-like view that will show up
             View message = LayoutInflater.from(mContext)
-                    .inflate(com.android.systemui.R.layout.global_actions_toast, mContainer, false);
+                    .inflate(com.android.systemui.R.layout.global_actions_view, mContainer, false);
 
             // Set up animation
             AccessibilityManager mAccessibilityManager = (AccessibilityManager) getContext().getSystemService(
