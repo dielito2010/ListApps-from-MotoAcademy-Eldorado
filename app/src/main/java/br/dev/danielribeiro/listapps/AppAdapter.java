@@ -1,4 +1,4 @@
-package br.dev.danielribeiro.listapps;
+package com.example.listapps2;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
