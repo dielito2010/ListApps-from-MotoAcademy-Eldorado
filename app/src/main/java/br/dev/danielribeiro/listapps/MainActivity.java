@@ -1,4 +1,4 @@
-package br.dev.danielribeiro.listapps;
+package com.example.listapps2;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -36,7 +36,14 @@ public class MainActivity extends AppCompatActivity {
             if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                 appList.add(appInfo);
             }
+            // appList.add(appInfo);
         }
+
+        // Configure o RecyclerView
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        appAdapter = new AppAdapter(this, appList);
+        recyclerView.setAdapter(appAdapter);
 
         // Configure o botão de salvar
         saveButton = findViewById(R.id.saveButton);
@@ -49,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
 
                     String appName = selectedApp.loadLabel(packageManager).toString();
+                    String packageName = selectedApp.packageName;
                     try {
-                        SystemPropertiesHelper.write("7", appName);
+                        //SystemPropertiesHelper.write(packageName, appName);
+                        SystemPropertiesHelper.write("listAppsProp", packageName);
                     }catch(Exception e)
                     {
 
