@@ -1,4 +1,4 @@
-package br.dev.danielribeiro.listapps;
+package com.example.listapps2;
 
 import static androidx.core.graphics.TypefaceCompatUtil.closeQuietly;
 
