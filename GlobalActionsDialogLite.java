@@ -96,6 +96,7 @@ import android.os.SystemProperties;
 import android.widget.Toast;
 import android.net.Uri;
 
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -186,7 +187,7 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
     // Modificação adicionei 2 variaveis
     static final String GLOBAL_ACTION_KEY_TOAST = "toast";
     static final String GLOBAL_ACTION_KEY_GALLERY = "gallery";
-    static final String GLOBAL_ACTION_KEY_CALCULATOR = "calculator";
+    static final String GLOBAL_ACTION_KEY_CUSTOM_BUTTON = "custombutton";
 
     // See NotificationManagerService#scheduleDurationReachedLocked
     private static final long TOAST_FADE_TIME = 333;
@@ -582,7 +583,7 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         mOverflowItems.clear();
         mPowerItems.clear();
         // Modificação para adição de botão screenshot
-        String[] defaultActions = { "power", "restart", "screenshot", "emergency", "calculator" };
+        String[] defaultActions = { "power", "restart", "screenshot", "emergency", "custombutton" };
 
         AirplaneModeAction airplaneModeAction = new AirplaneModeAction();
         ShutDownAction shutdownAction = new ShutDownAction();
@@ -645,8 +646,8 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
                 // edit add
             } else if (GLOBAL_ACTION_KEY_TOAST.equals(actionKey)) {
                 addIfShouldShowAction(tempActions, new ToastAction());
-            } else if (GLOBAL_ACTION_KEY_CALCULATOR.equals(actionKey)) {
-                addIfShouldShowAction(tempActions, new CalculatorAction());
+            } else if (GLOBAL_ACTION_KEY_CUSTOM_BUTTON.equals(actionKey)) {
+                addIfShouldShowAction(tempActions, new CustomButtonAction());
             } else {
                 Log.e(TAG, "Invalid global action key " + actionKey);
             }
@@ -951,11 +952,13 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         }
     }
 
-    class CalculatorAction extends SinglePressAction {
+    class CustomButtonAction extends SinglePressAction {
 
-        CalculatorAction() {
-            super(R.drawable.ic_screenshot, R.string.global_action_screenshot);
+        CustomButtonAction() {
+            super(com.android.systemui.R.drawable.ic_custom_button_aosp, com.android.systemui.R.string.custom_button_aosp);
         }
+
+        //(com.android.systemui.R.drawable.ic_settings_power,R.string.global_action_power_options);
 
         @Override
         // public void onPress() {
@@ -979,10 +982,8 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
 
             String packageName = SystemProperties.get("listAppsProp","");
             if(packageName.equals("")) {
-                packageName = packageName.replaceAll(packageName, "com.example.listapps2");}
-            // }else {
-            //     return packageName;
-            // }   
+                packageName = packageName.replaceAll(packageName, "com.example.listapps2");
+            }
 
             // String packageName = "com.example.listapps2"; // Substitua
             // "com.example.package" pelo packageName do
