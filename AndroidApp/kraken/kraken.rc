@@ -1,0 +1,12 @@
+on early-init
+ export KRAKEN "KRAKEN! v1.0"
+on property:dev.bootcomplete=1
+        exec /system/bin/log -p d -t "MotoAcademy" "Tambaqui iniciado."
+        start motoacademy_script
+
+service motoacademy_script /system/bin/tambaqui.sh
+        seclabel u:r:su:s0
+        user root
+        group root
+        disabled
+        oneshot
